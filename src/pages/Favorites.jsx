@@ -1,7 +1,10 @@
-import { Container, Typography, Box, Button } from "@mui/material";
+import { Container, Typography, Button, Stack } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import MovieGrid from "../components/MovieGrid";
+import EmptyState from "../components/EmptyState";
 import { useMovies } from "../context/MovieContext";
 
 export default function Favorites() {
@@ -14,16 +17,19 @@ export default function Favorites() {
         Back
       </Button>
 
-      <Typography variant="h4" fontWeight={700} sx={{ mb: 3 }}>
-        ❤️ Your Favorites
-      </Typography>
+      <Stack direction="row" spacing={1} sx={{ alignItems: "center", mb: 3 }}>
+        <FavoriteIcon sx={{ color: "#ff5c5c" }} />
+        <Typography variant="h4" fontWeight={700}>
+          Your Favorites
+        </Typography>
+      </Stack>
 
       {favorites.length === 0 ? (
-        <Box>
-          <Typography color="text.secondary">
-            You haven't saved any favorites yet. Click the heart icon on any movie to add it here.
-          </Typography>
-        </Box>
+        <EmptyState
+          icon={<FavoriteBorderIcon />}
+          title="No favorites yet"
+          subtitle="Click the heart icon on any movie to save it here."
+        />
       ) : (
         <MovieGrid movies={favorites} />
       )}

@@ -1,5 +1,8 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { Box, Container, Typography, Button, Stack } from "@mui/material";
+import WhatshotIcon from "@mui/icons-material/Whatshot";
+import PlayCircleIcon from "@mui/icons-material/PlayCircle";
+import SearchOffIcon from "@mui/icons-material/SearchOff";
 import SearchBar from "../components/SearchBar";
 import MovieGrid from "../components/MovieGrid";
 import MovieCard from "../components/MovieCard";
@@ -7,6 +10,7 @@ import FilterBar from "../components/FilterBar";
 import LoadingSpinner from "../components/LoadingSpinner";
 import SkeletonGrid from "../components/SkeletonGrid";
 import ErrorMessage from "../components/ErrorMessage";
+import EmptyState from "../components/EmptyState";
 import HeroBanner from "../components/HeroBanner";
 import Footer from "../components/Footer";
 import { getTrending, searchMovies, discoverMovies, getGenres } from "../api/tmdb";
@@ -140,9 +144,12 @@ export default function Home() {
 
         {!query && lastViewed && (
           <Box sx={{ mb: 5 }}>
-            <Typography variant="h5" fontWeight={600} sx={{ mb: 2 }}>
-              ▶ Continue Where You Left Off
-            </Typography>
+            <Stack direction="row" spacing={1} sx={{ alignItems: "center", mb: 2 }}>
+              <PlayCircleIcon color="primary" />
+              <Typography variant="h5" fontWeight={600}>
+                Continue Where You Left Off
+              </Typography>
+            </Stack>
             <Box sx={{ width: { xs: "50%", sm: 200 } }}>
               <MovieCard movie={lastViewed} />
             </Box>
@@ -151,9 +158,12 @@ export default function Home() {
 
         {!query && (
           <Box sx={{ mb: 5 }}>
-            <Typography variant="h5" fontWeight={600} sx={{ mb: 2 }}>
-              🔥 Trending This Week
-            </Typography>
+            <Stack direction="row" spacing={1} sx={{ alignItems: "center", mb: 2 }}>
+              <WhatshotIcon sx={{ color: "#ff7a45" }} />
+              <Typography variant="h5" fontWeight={600}>
+                Trending This Week
+              </Typography>
+            </Stack>
             <ErrorMessage message={trendingError} />
             {trendingLoading ? <SkeletonGrid /> : <MovieGrid movies={trending} />}
           </Box>
@@ -195,10 +205,12 @@ export default function Home() {
             </Box>
           )}
 
-          {!loading && movies.length === 0 && (
-            <Typography color="text.secondary" sx={{ mt: 2 }}>
-              No movies found. Try a different search or filter.
-            </Typography>
+          {!loading && movies.length === 0 && !error && (
+            <EmptyState
+              icon={<SearchOffIcon />}
+              title="No movies found"
+              subtitle="Try a different search term or adjust your filters."
+            />
           )}
 
           {/* Sentinel element for infinite scroll, only active while searching */}

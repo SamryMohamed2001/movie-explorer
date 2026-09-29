@@ -94,13 +94,7 @@ export default function Login() {
               variant="contained"
               size="large"
               fullWidth
-              sx={{
-                borderRadius: 2,
-                py: 1.2,
-                background: "linear-gradient(135deg, #01b4e4, #6c5ce7)",
-                boxShadow: "0 8px 20px rgba(1,180,228,0.35)",
-                "&:hover": { background: "linear-gradient(135deg, #01a1cc, #5b4bd1)" },
-              }}
+              sx={{ borderRadius: 2, py: 1.2 }}
             >
               Sign In
             </Button>

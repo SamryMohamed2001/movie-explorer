@@ -7,7 +7,7 @@ export default function TrailerEmbed({ videos }) {
 
   return (
     <Box sx={{ mt: 3 }}>
-      <Typography variant="h6" sx={{ mb: 1 }}>
+      <Typography variant="h6" fontWeight={700} sx={{ mb: 1 }}>
         Trailer
       </Typography>
       <Box sx={{ position: "relative", pt: "56.25%", borderRadius: 2, overflow: "hidden" }}>

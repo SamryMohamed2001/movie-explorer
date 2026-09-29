@@ -23,7 +23,6 @@ export function ThemeModeProvider({ children }) {
         palette: {
           mode,
           primary: { main: "#01b4e4" },
-          secondary: { main: "#90cea1" },
           background:
             mode === "dark"
               ? { default: "#0d1117", paper: "#161b22" }
@@ -38,6 +37,23 @@ export function ThemeModeProvider({ children }) {
           h4: { fontWeight: 700 },
           h5: { fontWeight: 700 },
           h6: { fontWeight: 700 },
+        },
+        components: {
+          MuiButton: {
+            styleOverrides: {
+              root: { textTransform: "none", fontWeight: 600 },
+              containedPrimary: {
+                background: "linear-gradient(135deg, #01b4e4, #6c5ce7)",
+                boxShadow: "0 8px 20px rgba(1,180,228,0.35)",
+                "&:hover": { background: "linear-gradient(135deg, #01a1cc, #5b4bd1)" },
+              },
+            },
+          },
+          MuiChip: {
+            styleOverrides: {
+              root: { fontWeight: 600 },
+            },
+          },
         },
       }),
     [mode]

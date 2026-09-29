@@ -21,7 +21,8 @@ export default function HeroBanner({ movies, genres }) {
 
   if (!featured) return null;
 
-  const rail = movies.slice(0, 6);
+  const RAIL_SIZE = Math.min(6, movies.length);
+  const rail = Array.from({ length: RAIL_SIZE }, (_, i) => movies[(index + i) % movies.length]);
 
   const prev = () => setIndex((i) => (i - 1 + movies.length) % movies.length);
   const next = () => setIndex((i) => (i + 1) % movies.length);
@@ -114,13 +115,7 @@ export default function HeroBanner({ movies, genres }) {
               size="large"
               startIcon={<InfoOutlinedIcon />}
               onClick={() => navigate(`/movie/${featured.id}`)}
-              sx={{
-                borderRadius: 2,
-                px: 3,
-                background: "linear-gradient(135deg, #01b4e4, #6c5ce7)",
-                boxShadow: "0 8px 20px rgba(1,180,228,0.35)",
-                "&:hover": { background: "linear-gradient(135deg, #01a1cc, #5b4bd1)" },
-              }}
+              sx={{ borderRadius: 2, px: 3 }}
             >
               View Details
             </Button>
@@ -128,27 +123,31 @@ export default function HeroBanner({ movies, genres }) {
 
           {/* Right: poster rail */}
           <Box sx={{ display: { xs: "none", sm: "flex" }, gap: 1.5, alignItems: "center" }}>
-            {rail.map((m, i) => (
-              <Box
-                key={m.id}
-                component="img"
-                onClick={() => setIndex(i)}
-                src={getPosterUrl(m.poster_path, "w342") || "https://placehold.co/220x330?text=No+Poster"}
-                alt={m.title}
-                sx={{
-                  width: i === index ? 150 : 100,
-                  height: i === index ? 225 : 150,
-                  objectFit: "cover",
-                  borderRadius: 2,
-                  cursor: "pointer",
-                  boxShadow: i === index ? 6 : 1,
-                  border: i === index ? "2px solid" : "2px solid transparent",
-                  borderColor: i === index ? "primary.main" : "transparent",
-                  transition: "all 0.25s ease",
-                  alignSelf: "center",
-                }}
-              />
-            ))}
+            {rail.map((m, i) => {
+              const isFeatured = i === 0;
+              const movieIndex = (index + i) % movies.length;
+              return (
+                <Box
+                  key={`${m.id}-${movieIndex}`}
+                  component="img"
+                  onClick={() => setIndex(movieIndex)}
+                  src={getPosterUrl(m.poster_path, "w342") || "https://placehold.co/220x330?text=No+Poster"}
+                  alt={m.title}
+                  sx={{
+                    width: isFeatured ? 150 : 100,
+                    height: isFeatured ? 225 : 150,
+                    objectFit: "cover",
+                    borderRadius: 2,
+                    cursor: "pointer",
+                    boxShadow: isFeatured ? 6 : 1,
+                    border: isFeatured ? "2px solid" : "2px solid transparent",
+                    borderColor: isFeatured ? "primary.main" : "transparent",
+                    transition: "all 0.25s ease",
+                    alignSelf: "center",
+                  }}
+                />
+              );
+            })}
           </Box>
         </Box>
 

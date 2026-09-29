@@ -11,6 +11,7 @@ import {
   Avatar,
   IconButton,
   Skeleton,
+  Divider,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -111,20 +112,27 @@ export default function MovieDetails() {
             </Typography>
           </Stack>
 
-          <Stack direction="row" spacing={1} sx={{ mb: 2, flexWrap: "wrap" }}>
+          <Stack direction="row" spacing={1} sx={{ mb: 3, flexWrap: "wrap" }}>
             {movie.genres?.map((g) => (
-              <Chip key={g.id} label={g.name} variant="outlined" size="small" />
+              <Chip
+                key={g.id}
+                label={g.name}
+                size="small"
+                sx={{ bgcolor: "rgba(1,180,228,0.12)", color: "primary.main", fontWeight: 600 }}
+              />
             ))}
           </Stack>
 
-          <Typography variant="h6" sx={{ mt: 2, mb: 1 }}>
+          <Divider sx={{ mb: 3 }} />
+
+          <Typography variant="h6" fontWeight={700} sx={{ mb: 1 }}>
             Overview
           </Typography>
           <Typography color="text.secondary">{movie.overview || "No overview available."}</Typography>
 
           {cast.length > 0 && (
             <Box sx={{ mt: 3 }}>
-              <Typography variant="h6" sx={{ mb: 1 }}>
+              <Typography variant="h6" fontWeight={700} sx={{ mb: 1 }}>
                 Cast
               </Typography>
               <Stack direction="row" spacing={2} sx={{ overflowX: "auto", pb: 1 }}>
