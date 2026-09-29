@@ -1,16 +1,10 @@
-import { Box, Container, Typography, Stack, IconButton, Link as MuiLink } from "@mui/material";
+import { Box, Container, Typography, Stack, Link as MuiLink } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
-import GitHubIcon from "@mui/icons-material/GitHub";
 import Logo from "./Logo";
 
 const EXPLORE_LINKS = [
   { label: "Home", to: "/" },
   { label: "Favorites", to: "/favorites" },
-];
-
-const ABOUT_LINKS = [
-  { label: "TMDb API", href: "https://developers.themoviedb.org/3" },
-  { label: "Source Code", href: "https://gitlab.com" },
 ];
 
 export default function Footer() {
@@ -25,16 +19,6 @@ export default function Footer() {
             <Typography variant="body2" sx={{ opacity: 0.7 }}>
               Discover trending films, search the TMDb catalog, and build your own favorites list.
             </Typography>
-            <IconButton
-              component="a"
-              href="https://github.com"
-              target="_blank"
-              rel="noreferrer"
-              sx={{ color: "#fff", mt: 1.5, border: "1px solid rgba(255,255,255,0.2)" }}
-              aria-label="GitHub"
-            >
-              <GitHubIcon fontSize="small" />
-            </IconButton>
           </Box>
 
           <Box>
@@ -47,26 +31,6 @@ export default function Footer() {
                   key={l.label}
                   component={RouterLink}
                   to={l.to}
-                  underline="hover"
-                  sx={{ color: "rgba(255,255,255,0.7)", "&:hover": { color: "#fff" } }}
-                >
-                  {l.label}
-                </MuiLink>
-              ))}
-            </Stack>
-          </Box>
-
-          <Box>
-            <Typography variant="subtitle2" fontWeight={700} sx={{ color: "#fff", mb: 1.5 }}>
-              About
-            </Typography>
-            <Stack spacing={1}>
-              {ABOUT_LINKS.map((l) => (
-                <MuiLink
-                  key={l.label}
-                  href={l.href}
-                  target="_blank"
-                  rel="noreferrer"
                   underline="hover"
                   sx={{ color: "rgba(255,255,255,0.7)", "&:hover": { color: "#fff" } }}
                 >
